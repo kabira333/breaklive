@@ -104,15 +104,15 @@ app.post("/api/view-video", (req, res ,next) => {
 	   var decoded = jwt.verify(token, 'secret');
        const id= decoded.row[0].id;
 	   
-       const clip_sql = "select likes from clips where id = "+req.body.video_id;
+       const clip_sql = "select views from clips where id = "+req.body.video_id;
         sql.query(clip_sql,(err,row)=>{
 			  if (row.length > 0) {
-				const tot = (row[0].likes+1);
-				const clip_sql_update =  "update clips set likes = "+tot+" where id = "+req.body.video_id;
+				const tot = (row[0].views+1);
+				const clip_sql_update =  "update clips set views = "+tot+" where id = "+req.body.video_id;
 				sql.query(clip_sql_update,(err,rows)=>{
 					
 				});
-				res.json({status:'success',message:"video like", data:[]});
+				res.json({status:'success',message:"video views", data:[]});
 			  }
 		});
    
@@ -147,6 +147,9 @@ app.post("/api/like-profile", (req, res ,next) => {
    
   
 });
+
+
+
 
 
 app.listen(3000);
