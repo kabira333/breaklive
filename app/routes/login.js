@@ -5,8 +5,15 @@ const app = express();
 app.use(express.json());
 const sql = require("../config/db.js");
 const routes = require('express').Router();
-var cors = require('cors');
+const bcrypt = require("bcryptjs");
+const cors = require('cors');
 app.use(cors());
+
+routes.get("/", (req, res ,next) => {    
+ res.json({status:'success',message:"Server run", data:[]});
+});
+
+
 
 routes.post("/login", (req, res ,next) => {
    if(req.body.phone==''){
@@ -21,8 +28,10 @@ routes.post("/login", (req, res ,next) => {
 			  }else{
 				  var rql = "select * from users ";
 				  sql.query(rql,(err,row)=>{
+					  const password = bcrypt.hashSync(req.body.phone, 8)
 					  var username = 'guest_'+(row.length+1);
-					  var insert = "insert  into users (name ,username ,phone ,status ,verified ) value ('"+username+"','"+username+"','"+req.body.phone+"',1,1)";
+					  
+					  var insert = "insert  into users (name ,username ,password,phone  ,status ,verified ) value ('"+username+"','"+username+"','"+password+"','"+req.body.phone+"',1,1)";
 					  sql.query(insert,(err,row)=>{
 						  var qql = "select * from users where phone =  "+req.body.phone;
 						  sql.query(qql,(err,rows)=>{
@@ -39,34 +48,43 @@ routes.post("/login", (req, res ,next) => {
   
 });
 
-
-routes.post("/like-profile", (req, res ,next) => {
-	  
-	  
-	   var token=req.body.token || req.headers['token'];
-	   if(!token)
-	   {
-		   res.json({status:'error',message:"unothorized", data:[]});
-	   }
-	   var decoded = jwt.verify(token, 'secret');
-	   
-       const id= decoded.row[0].id;
-	   
-       const clip_sql = "select likesCount from users where id = "+req.body.user_id;
-
-        sql.query(clip_sql,(err,row)=>{
+routes.post("/login-password", (req, res ,next) => {
+   if(req.body.phone==''){
+	    res.json({status:'success',message:"phone number required",data:[]});
+   }
+   else if(req.body.password==''){
+	    res.json({status:'success',message:"Password required",data:[]});
+   }
+   else{ 
+       var pql = "select * from users where phone =  "+req.body.phone;
+        sql.query(pql,(err,row)=>{
 			  if (row.length > 0) {
-				const tot = (row[0].likesCount+1);
-				const clip_sql_update =  "update users set likesCount = "+tot+" where id = "+req.body.user_id;
-				sql.query(clip_sql_update,(err,rows)=>{
+				  
+				  var passwordIsValid = bcrypt.compareSync(
+					req.body.password,
+					row[0].password
+				  );
+				  if (!passwordIsValid) {
 					
-				});
-				res.json({status:'success',message:"profile like", data:[]});
+					res.json({status:'error',message:"Invaild password",access_token : null,data:[]});
+				  }else{
+					  const token = jwt.sign({row}, 'secret', { expiresIn: 60 * 60 });
+					  res.json({status:'success',message:"login successfully",access_token : token,data:row});
+				  }
+				  
+				
+  
+				
+			  }else{
+				  
+				res.json({status:'error',message:"You are not register with us",  data:[]});
+						  
 			  }
 		});
-   
+   }
   
 });
+
 
 
 module.exports = routes;
