@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "1d8e6a33-c075-402a-9192-960875c92a7f",
+		"name": "Break live node",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone\":\"8209832677\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sound List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb3ciOlt7ImlkIjoxLCJuYW1lIjoiZ3Vlc3RfMSIsImVtYWlsIjpudWxsLCJwaG9uZSI6Ijc3OTIwNzY2OTciLCJlbWFpbF92ZXJpZmllZF9hdCI6bnVsbCwicGFzc3dvcmQiOm51bGwsInJlbWVtYmVyX3Rva2VuIjpudWxsLCJjcmVhdGVkX2F0IjoiMjAyMS0wOC0xN1QwOTo1ODoyMy4wMDBaIiwidXBkYXRlZF9hdCI6IjIwMjEtMDgtMTdUMDk6NTg6MjMuMDAwWiIsInBob3RvIjpudWxsLCJ1c2VybmFtZSI6Imd1ZXN0XzEiLCJiaW8iOm51bGwsInZlcmlmaWVkIjowLCJsb2NhdGlvbiI6bnVsbCwibGF0aXR1ZGUiOm51bGwsImxvbmdpdHVkZSI6bnVsbCwiZm9sbG93ZXJzQ291bnQiOm51bGwsImZvbGxvd2VkQ291bnQiOm51bGwsImNsaXBzQ291bnQiOm51bGwsImxpa2VzQ291bnQiOm51bGwsInZpZXdzQ291bnQiOm51bGwsIm1lIjowLCJmb2xsb3dlciI6MCwiZm9sbG93ZWQiOjAsImJsb2NraW5nIjowLCJibG9ja2VkIjowLCJwcm92aWRlciI6bnVsbCwicHJvdmlkZXJfaWQiOm51bGwsImRldmljZV90b2tlbiI6bnVsbCwic3RhdHVzIjoxfV0sImlhdCI6MTYyOTIyNjg4MiwiZXhwIjoxNjI5MjMwNDgyfQ.83x_9uaT95PlXrLN9T1qwZ5-t-M7yv6objcypffOV44",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/sounds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sounds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clip list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/clips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like user profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/like-profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"like-profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like video",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"video_id\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/like-clips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"like-clips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stiker list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/stickers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"stickers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone\":\"8209832677\",\r\n    \"password\":\"8209832677\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/login-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VIew clip",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"video_id\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/view-clips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"view-clips"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
